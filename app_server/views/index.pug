@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	.jumbotron
+		h1.display-1.text-center.text-success Voting App
+		p.lead.text-center This is the voting app for the Free Code Camp full stack certificate.
+
+		h1.display-6.text-center Voting Area
+
+		.list-group.text-center
+			row
+				.col-lg-12
+					h3.error.text-danger= message
+					each poll in polls
+						a.list-group-item(href="/poll/" + poll._id)= poll.question

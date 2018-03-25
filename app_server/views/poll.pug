@@ -1,0 +1,32 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content		
+		+graph(poll)
+		h1.text-center.text-success= poll.question  
+		| &nbsp;
+		form.pollarea(action="" method="post" role="form")
+			.form-group
+				.row
+					.col-md-6
+						canvas(id="myChart" Width="400" height="400")
+					.col.-md-6
+						br
+						br
+						br
+						select.custom-select(name="pollItem" id="pollItem")
+							option(selected disabled hidden) Open this select menu
+							each option in poll.options
+								option(value=option._id)= option.option
+						br
+						br
+						button.btn.btn-primary(type="submit" value="vote") Vote
+						br
+						br
+						br
+						h4 #[span.totalVoters= poll.totalVotes] people have voted so far
+
+
+//- using progress bar from bootstrap, get total votes of every item.  then take each individual 
+//- item and divide by the total.  then take the percentageand pug into the style 

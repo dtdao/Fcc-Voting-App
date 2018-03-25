@@ -1,0 +1,94 @@
+mixin percentageVal(value, total)
+	- var value = value
+	- var total = total
+	.progress-bar.bg-success(role="progressbar", style="width:" + ((value/total)*100).toFixed(2)+"%")
+
+mixin mongoDateExtractor(pollid)
+	- var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	- var date = new Date(parseInt(pollid.toString().substring(0,8), 16)*1000);
+	th(scope="col")= month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+
+mixin pollDetailCreater(pollid, pollquestion)
+	- var pollid = pollid
+	- var pollquestion = pollquestion
+	a(href="/poll/"+pollid)
+
+
+mixin graph(data)
+	script.
+		window.onload = function(){
+			var data = !{JSON.stringify(data)}
+			var getRandomColor = function() {
+			    var letters = '0123456789ABCDEF';
+			    var color = '#';
+			    for (var i = 0; i < 6; i++ ) {
+			        color += letters[Math.floor(Math.random() * 16)];
+			    }
+			    return color;
+			}
+			var optionArray = [];
+			var valueArray = [];
+			var bgColorArray = [];
+			var borderColorArray = [];
+			for(var i = 0; i < data.options.length; i++){
+				optionArray.push(data.options[i].option);
+				valueArray.push(data.options[i].votes);
+				bgColorArray.push(getRandomColor());
+			}
+			var ctx = document.getElementById("myChart");
+			var myChart = new Chart(ctx, {
+				type: "pie",
+				data: {
+					labels: optionArray,
+					datasets: [{
+						label: "# of votes " + data.totalVotes,
+						data: valueArray,
+						backgroundColor:bgColorArray,
+						borderColor: "#000000",
+						borderWidth: 1
+					}]
+				},
+				options: {
+					responsive: false
+			    }
+			})
+		}
+		//- 	var ctx = document.getElementById("myChart");
+		//- 	var myChart = new Chart(ctx, {
+		//- 	    type: 'bar',
+		//- 	    data: {
+		//- 	        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+		//- 	        datasets: [{
+		//- 	            label: '# of Votes',
+		//- 	            data: [12, 19, 3, 5, 2, 3],
+		//- 	            backgroundColor: [
+		//- 	                'rgba(255, 99, 132, 0.2)',
+		//- 	                'rgba(54, 162, 235, 0.2)',
+		//- 	                'rgba(255, 206, 86, 0.2)',
+		//- 	                'rgba(75, 192, 192, 0.2)',
+		//- 	                'rgba(153, 102, 255, 0.2)',
+		//- 	                'rgba(255, 159, 64, 0.2)'
+		//- 	            ],
+		//- 	            borderColor: [
+		//- 	                'rgba(255,99,132,1)',
+		//- 	                'rgba(54, 162, 235, 1)',
+		//- 	                'rgba(255, 206, 86, 1)',
+		//- 	                'rgba(75, 192, 192, 1)',
+		//- 	                'rgba(153, 102, 255, 1)',
+		//- 	                'rgba(255, 159, 64, 1)'
+		//- 	            ],
+		//- 	            borderWidth: 1
+		//- 	        }]
+		//- 	    },
+		//- 	    options: {
+		//- 	    	responsive: false,
+		//- 	        scales: {
+		//- 	            yAxes: [{
+		//- 	                ticks: {
+		//- 	                    beginAtZero:true
+		//- 	                }
+		//- 	            }]
+		//- 	        }
+		//- 	    }
+		//- 	});
+		//- }

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+
+	.jumbotron
+		h1.text-center Add a new poll for everyone to vote
+		form.form-horizontal.text-center#pollForm
+			.form-group
+				label.col-form-label(for="pollName") Name your poll.
+				.col-sm-12
+					input#question.form-control(placeholder="Enter your question here" name="question")
+			.form-group
+				label.col-form-label(for="option") Your question options
+				.col-sm-8.offset-sm-2.pollOptions
+					input.option.form-control(name="options")
+					|&nbsp;
+					input.option.form-control(name="options")
+			button.btn.btn-primary#submit Submit 
+			| &nbsp;
+			button.btn.btn-success#moreOption(type="button") More Options 

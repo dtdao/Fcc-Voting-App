@@ -1,0 +1,40 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+	h1.text-center.text-success= data.author.name+ "'s polls"
+	|&nbsp;
+	table.table.table-hover
+		thead
+			tr
+				th(scope="col") Poll
+				th(scope="col") Total Votes
+				th(scope="col") Date Created
+				th(scope="col") Add Option
+				th(scope="col") Delete
+			each poll in data.polls
+				tr
+					th(scope="col")
+						a(href="/poll/"+poll._id)= poll.question
+					th(scope="col")= poll.totalVotes
+					+mongoDateExtractor(poll._id)
+					th(scope="col")
+						button.btn.btn-secondary.addModalOpen(data-toggle="modal" data-target="#addOptionModal" id=poll._id) Add Option
+					th(scope="col")
+						button.btn.btn-secondary.pollDelete(id=poll._id) Delete
+
+	.modal.fade#addOptionModal
+		.modal-dialog
+			.modal-content
+				.modal-header
+					h5.text-center Add A New Option
+				.modal-body
+					form#addOptionForm
+						.form-group
+							label New Option
+							input.form-control(type="text" placeholder="A new option" name="newOption")
+				.modal-footer
+					h5.modalerror
+					button.btn.btn-primary.optionAdd(type="button" value="") Add
+

@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/bootstrap/css/darkly-bootstrap.min.css")
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+        a.navbar-brand(href="/") Voting App
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#main")
+            span.navbar-toggler-icon
+        .collapse.navbar-collapse#main
+            ul.navbar-nav.mr-auto
+                li.nav-item #[a.nav-link(href="/about") About]
+                li.nav-item #[a.nav-link(href="/new") New Poll]
+            ul.nav.navbar-nav.navbar-right
+                li.nav-item
+                    a.nav-link.register(href="" data-toggle="modal" data-target="#registerModal")
+                        span #[i.fas.fa-user-plus] Register
+                li.nav-item
+                    a.nav-link.logctrl(href="" data-toggle="modal" data-target="#loginModal")
+                        span #[i.fas.fa-sign-in-alt] Login
+    .container
+        | &nbsp;
+        block content
+
+    // model for the registration
+    .modal.fade#registerModal
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.text-center Register User
+                .modal-body
+                    form.form-horizontal#registerForm
+                        .form-group.row
+                            label.col-form-label.col-sm-2 Name: 
+                            .col-sm-10
+                                input.form-control(type="text" placeholder="John Smith" name="name")
+                        .form-group.row
+                            label.col-form-label.col-sm-2 Email:
+                            .col-sm-10
+                                input.form-control(type="email" placeholder="sample@mail.com" name="email")
+                        .form-group.row
+                            label.col-form-label.col-sm-2(for="password") Password: 
+                            .col-sm-10
+                                input.form-control(type="password" placeholder="super secret password" name="password")
+                .modal-footer
+                    h5.modalerror
+                    button.btn.btn-primary#registerUser(type="button") Register
+
+    .modal.fade#loginModal
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.text-center Login
+                .modal-body
+                    form.form-horizontal#loginForm
+                        .form-group.row
+                            label.col-form-label.col-sm-2(for="userName") Email:
+                            .col-sm-10
+                                input.form-control(type="email" placeholder="Enter Email" name="email")
+                        .form-group.row
+                            label.col-form-label.col-sm-2(for="password") Password:
+                            .col-sm-10
+                                input.form-control(type="password" placeholder="Enter Password" name="password")
+                .modal-footer
+                    h5.modalerror
+                    button.btn.btn-primary#modalLogin(type="button") Login
+
+    .container
+        footer
+            row
+                .col-xs-12
+                    small &copy; Dong Dao 2018
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="https://use.fontawesome.com/releases/v5.0.6/js/all.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+    script(src="../javascripts/local.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js")
